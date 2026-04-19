@@ -3,6 +3,7 @@ import * as ClientController from '../Controllers/ClientController.ts';
 
 const router = express.Router();
 
-router.get('/client', ClientController.getClients);
+router.get('/client/list', ClientController.getClients);
+router.post('/client/store', ClientController.storeClients);
 
 export default router;
