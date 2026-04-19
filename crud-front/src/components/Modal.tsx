@@ -11,13 +11,18 @@ export default function Modal({isOpen, onClose, mode, onSubmit}: ModalInterface)
     const [clNome, setClName] = useState<string>('');
     const [email, setEmail] = useState('');
 
+    const handleSubmit = async(e: any) => {
+        e.preventDefault();
+        onClose();
+    }
+
     return(
         <dialog id="my_modal_3" className="modal" open={isOpen} onClose={onClose}>
             <div className="modal-box">
                 <h3 className="font-bold text-lg py-4">
                     {mode == 'add' ? 'Adicionar' : 'Editar'}
                 </h3>
-                <form method="dialog">
+                <form method="dialog" onSubmit={handleSubmit}>
                     <button
                         className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                         onClick={() => {}}

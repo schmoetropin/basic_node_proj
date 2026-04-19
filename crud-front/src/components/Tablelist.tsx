@@ -18,39 +18,41 @@ export default function Tablelist({onOpen}: TablelistInstance){
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Email</th>
-                        <th></th>
+                        <th>Status</th>
                         <th></th>
                         <th></th>
                     </tr>
-                    </thead>
-                    <tbody>
-                        {customers.map(c => 
-                           <tr key={c.id}>
-                                <th>{c.id}</th>
-                                <td>{c.name}</td>
-                                <td>{c.email}</td>
-                                <td>
-                                    <button className={`btn rounded-full ${c.active ? 'btn-primary' : 'btn-secondary'}`}>
-                                        {c.active ? 'Ativo' : 'Inativo'}
-                                    </button>
-                                </td>
-                                <td>
-                                    <button
-                                        onClick={() => onOpen()}
-                                        className={`btn rounded-full `}
-                                    >
-                                        Atualizar
-                                    </button>
-                                </td>
-                                <td>
-                                    <button className={`btn rounded-full btn-warning`}>
-                                        Deletar
-                                    </button>
-                                </td>
-                            </tr> 
-                        )}
-                    </tbody>
-                </table>
-            </div>
+                </thead>
+                <tbody>
+                    {customers.map(c => 
+                        <tr key={c.id}>
+                            <th>{c.id}</th>
+                            <td>{c.name}</td>
+                            <td>{c.email}</td>
+                            <td>
+                                <button
+                                    className={`btn rounded-full ${c.active ? 'btn-primary' : 'btn-secondary'}`}
+                                >
+                                    {c.active ? 'Ativo' : 'Inativo'}
+                                </button>
+                            </td>
+                            <td>
+                                <button
+                                    onClick={() => onOpen()}
+                                    className={`btn rounded-full `}
+                                >
+                                    Atualizar
+                                </button>
+                            </td>
+                            <td>
+                                <button className={`btn rounded-full btn-warning`}>
+                                    Deletar
+                                </button>
+                            </td>
+                        </tr> 
+                    )}
+                </tbody>
+            </table>
+        </div>
     );
 }

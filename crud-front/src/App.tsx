@@ -5,21 +5,21 @@ import Tablelist from './components/Tablelist'
 import Modal from './components/Modal';
 
 function App() {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [modalMode, setModalMode] = useState<string>('add');
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [modalMode, setModalMode] = useState<string>('add');
 
-    const handleOpen = (mode: string) => {
-        setModalMode(mode);
-        setIsOpen(true);
-    }
+  const handleOpen = (mode: string) => {
+    setModalMode(mode);
+    setIsOpen(true);
+  }
 
-    const handleSubmit = async() => {
-        if (modalMode == 'add') {
-          console.log('add');
-        } else {
-          console.log('edit');
-        }
+  const handleSubmit = async() => {
+    if (modalMode == 'add') {
+      console.log('add');
+    } else {
+      console.log('edit');
     }
+  }
 
   return (
     <>
