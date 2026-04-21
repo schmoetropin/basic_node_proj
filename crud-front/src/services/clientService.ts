@@ -7,6 +7,14 @@ const getList = async() => {
     });
 }
 
+const searchCust = async(val: string) => {
+    return await apiFetchData({
+        method: 'GET',
+        url: `/client/search/${val}`
+    });
+}
+
 export {
     getList,
+    searchCust,
 }

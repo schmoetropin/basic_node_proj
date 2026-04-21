@@ -1,25 +1,9 @@
-import { useEffect, useState } from "react";
-import { getList } from "../services/clientService";
-
 interface TablelistInstance {
     onOpen: () => void
+    customers: any
 }
 
-export default function Tablelist({onOpen}: TablelistInstance){
-
-    const [customers, setCustomers] = useState<any>([]);
-
-    useEffect(() => {
-        const fetchData = async() => {
-            let resp = await getList();
-            if (resp.success) {
-                let cust = resp.data ? resp.data : [];
-                setCustomers(cust)
-            }
-        }
-        fetchData().then();
-    }, []);
-
+export default function Tablelist({onOpen, customers}: TablelistInstance){
     return (
         <div className="overflow-x-auto">
             <table className="table table-zebra">

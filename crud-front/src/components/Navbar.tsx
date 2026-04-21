@@ -1,8 +1,10 @@
 interface NavebarInterface {
     onOpen: () => void,
+    search: string,
+    setSearch: (val: string) => void
 }
 
-export default function Navbar({onOpen}: NavebarInterface) {
+export default function Navbar({onOpen, search, setSearch}: NavebarInterface) {
     return (
         <div className="max-lg:collapse bg-base-200 lg:mb-48 shadow-sm w-full rounded-md">
             <input id="navbar-1-toggle" className="peer hidden" type="checkbox" />
@@ -24,7 +26,13 @@ export default function Navbar({onOpen}: NavebarInterface) {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <input type="text" placeholder="Procurar..." className="input input-bordered w-64 lg:w-auto" />
+                    <input
+                        type="text"
+                        placeholder="Procurar..."
+                        className="input input-bordered w-64 lg:w-auto"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
                 </div>
             </div>
         </div>
