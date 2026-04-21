@@ -7,17 +7,49 @@ class Customer {
             response.status(200).json(cust);
         } catch (error) {
             console.log(error);
-            response.status(500).json({message: 'Error fetching data'})
+            response.status(500).json({message: 'Error fetching data'});
         }
     }
 
     storeClients = async(request: any, response: any) => {
         try {
-            const cust = await ClientService.storeClients(request.body)
+            const cust = await ClientService.storeClients(request.body);
             response.status(200).json(cust);
         } catch (error) {
             console.log(error);
-            response.status(500).json({message: 'Error fetching data'})
+            response.status(500).json({message: 'Error fetching data'});
+        }
+    }
+
+    updateClient = async(request: any, response: any) => {
+        try {
+            const cust = await ClientService.updateClient(request.body, request.params.id);
+            response.status(200).json(cust);
+        } catch (error) {
+            console.log(error);
+            response.status(500).json({message: 'Error fetching data'});
+        }
+    }
+
+    deleteClient = async(request: any, response: any) => {
+        try {
+            const cust = await ClientService.deleteClient(request.params.id);
+            response.status(200).json(cust);
+        } catch (error) {
+            console.log(error);
+            response.status(500).json({message: 'Error fetching data'});
+        }
+    }
+
+    searchClients = async(request: any, response: any) => {
+        try {
+            console.log(request.params.search);
+            const cust = await ClientService.searchClients(request.params.search);
+            console.log(cust);
+            response.status(200).json(cust);
+        } catch (error) {
+            console.log(error);
+            response.status(500).json({message: 'Error fetching data'});
         }
     }
 }
