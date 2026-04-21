@@ -18,50 +18,62 @@ class ClientService {
 
     storeClients = async(clientData: ClientData) => {
         try {
+            await db.beginTransaction();
             const {name, email} = clientData;
             const date = getDate;
+
             const [rows] = await db.query(
                 `INSERT INTO customer(name, email, created_at, updated_at)
                 VALUES($name, $email, $created_at, $updated_at)
                 RETURNING *`,
                 [name, email, date, date]
             );
+            await db.commit();
 
             return rows[0];
         } catch (error) {
+            await db.rollback();
             throw error;
         }
     }
 
     updateClient = async(clientData: ClientData, id: number) => {
         try {
+            await db.beginTransaction();
             const {name, email} = clientData;
             const date = getDate;
+
             const [rows] = await db.query(
                 `UDPADE customer SET name=$name, email=$email, updated_at=$updated_at
                 WHERE id=$id
                 RETURNING *`,
                 [name, email, date, id]
             );
+            await db.commit();
 
             return rows[0];
         } catch (error) {
+            await db.rollback();
             throw error;
         }
     }
 
     deleteClient = async(id: number) => {
         try {
+            await db.beginTransaction();
             const date = getDate;
+
             const [rows] = await db.query(
                 `UDPADE customer SET updated_at=$deleted_at
                 WHERE id=$id
                 RETURNING *`,
                 [date, id]
             );
+            await db.commit();
 
             return rows[0];
         } catch (error) {
+            await db.rollback();
             throw error;
         }
     }

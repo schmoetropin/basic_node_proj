@@ -43,9 +43,7 @@ class Customer {
 
     searchClients = async(request: any, response: any) => {
         try {
-            console.log(request.params.search);
             const cust = await ClientService.searchClients(request.params.search);
-            console.log(cust);
             response.status(200).json(cust);
         } catch (error) {
             console.log(error);
