@@ -6,9 +6,10 @@ interface ModalInterface {
     onClose: () => void,
     mode: string,
     setCustomers: (data: any) => void,
+    setOpen: (val: boolean) => void,
 };
 
-export default function Modal({isOpen, onClose, mode, setCustomers}: ModalInterface){
+export default function Modal({isOpen, onClose, mode, setCustomers, setOpen}: ModalInterface){
     const [clNome, setClName] = useState<string>('');
     const [email, setEmail] = useState('');
 
@@ -39,7 +40,7 @@ export default function Modal({isOpen, onClose, mode, setCustomers}: ModalInterf
                     <button
                         type="button"
                         className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                        onClick={() => {}}
+                        onClick={() => setOpen(false)}
                     >
                         ✕
                     </button>

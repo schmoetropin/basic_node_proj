@@ -29,6 +29,7 @@ function App() {
         onClose={() => setIsOpen(false)}
         mode={modalMode}
         setCustomers={setCustomers}
+        setOpen={setIsOpen}
       />
     </>
   )
