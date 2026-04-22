@@ -1,9 +1,15 @@
 interface TablelistInstance {
     onOpen: () => void
     customers: any
+    setCustId: (val: number) => void,
 }
 
-export default function Tablelist({onOpen, customers}: TablelistInstance){
+export default function Tablelist({onOpen, customers, setCustId}: TablelistInstance){
+    const openModal = (id: number) => {
+        setCustId(id);
+        onOpen()
+    }
+
     return (
         <div className="overflow-x-auto">
             <table className="table table-zebra">
@@ -35,7 +41,7 @@ export default function Tablelist({onOpen, customers}: TablelistInstance){
                                     </td>
                                     <td>
                                         <button
-                                            onClick={() => onOpen()}
+                                            onClick={() => openModal(c.id)}
                                             className={`btn rounded-full `}
                                         >
                                             Atualizar

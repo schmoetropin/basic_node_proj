@@ -8,8 +8,9 @@ function App() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [modalMode, setModalMode] = useState<string>('add');
   const [customers, setCustomers] = useState<any>([]);
+  const [custId, setCustId] = useState(0);
 
-  const handleOpen = (mode: string) => {
+  const handleOpen = (mode: string,) => {
     setModalMode(mode);
     setIsOpen(true);
   }
@@ -23,6 +24,7 @@ function App() {
       <Tablelist
         onOpen={() => handleOpen('edit')}
         customers={customers}
+        setCustId={setCustId}
       />
       <Modal
         isOpen={isOpen}
@@ -30,6 +32,7 @@ function App() {
         mode={modalMode}
         setCustomers={setCustomers}
         setOpen={setIsOpen}
+        custId={custId}
       />
     </>
   )
