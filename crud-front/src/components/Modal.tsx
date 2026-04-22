@@ -15,6 +15,13 @@ export default function Modal({isOpen, onClose, mode, setCustomers, setOpen, cus
     const [email, setEmail] = useState('');
 
     useEffect(() => {
+        if (mode == 'add') {
+            setClName('');
+            setEmail('');
+        }
+    }, [mode]);
+
+    useEffect(() => {
         const fetchData = async() => {
             if (mode == 'edit') {
                 let cust = await showCust(custId);

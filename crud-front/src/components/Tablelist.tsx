@@ -1,4 +1,4 @@
-import { statusCust, getList } from "../services/clientService";
+import { statusCust, getList, deleteCust } from "../services/clientService";
 
 interface TablelistInstance {
     onOpen: () => void
@@ -15,6 +15,16 @@ export default function Tablelist({onOpen, customers, setCustId, setCustomers}: 
 
     const updStatus = async(id: number) => {
         const resp = await statusCust(id);
+        if (resp.success) {
+            const custs = await getList();
+            if (custs.success) {
+                setCustomers(custs.data);
+            }
+        }
+    }
+
+    const delCust = async(id: number) => {
+        const resp = await deleteCust(id);
         if (resp.success) {
             const custs = await getList();
             if (custs.success) {
@@ -62,7 +72,10 @@ export default function Tablelist({onOpen, customers, setCustId, setCustomers}: 
                                         </button>
                                     </td>
                                     <td>
-                                        <button className={`btn rounded-full btn-warning`}>
+                                        <button
+                                            onClick={() => delCust(c.id)}
+                                            className={`btn rounded-full btn-warning`}
+                                        >
                                             Deletar
                                         </button>
                                     </td>

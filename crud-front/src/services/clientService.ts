@@ -44,6 +44,13 @@ const statusCust = async(id: number) => {
     });
 }
 
+const deleteCust = async(id: number) => {
+    return await apiFetchData({
+        method: 'DELETE',
+        url: `/client/delete/${id}`
+    });
+}
+
 export {
     getList,
     searchCust,
@@ -51,4 +58,5 @@ export {
     updateCust,
     showCust,
     statusCust,
+    deleteCust,
 }
