@@ -89,6 +89,18 @@ class ClientService {
             throw error;
         }
     }
+
+    showClient = async(id: number) => {
+        try {
+            const [rows] = await db.query(
+                `SELECT * FROM customer WHERE id=?`,
+                [id]
+            );
+            return rows;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 export default new ClientService;
