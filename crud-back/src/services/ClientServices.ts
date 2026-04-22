@@ -9,7 +9,7 @@ interface ClientData {
 class ClientService {
     getClients = async() => {
         try {
-            const [rows] = await db.query('SELECT * FROM customer');
+            const [rows] = await db.query('SELECT * FROM customer WHERE deleted_at IS NULL');
             return rows;
         } catch (error) {
             throw error;
@@ -20,11 +20,11 @@ class ClientService {
         try {
             await db.beginTransaction();
             const {name, email} = clientData;
-            const date = getDate;
+            const date = getDate();
 
             const [rows] = await db.query(
                 `INSERT INTO customer(name, email, created_at, updated_at)
-                VALUES($name, $email, $created_at, $updated_at)
+                VALUES(?, ?, ?, ?)
                 RETURNING *`,
                 [name, email, date, date]
             );
