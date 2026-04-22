@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { storeCust } from "../services/clientService"
+import { getList, storeCust } from "../services/clientService"
 
 interface ModalInterface {
     isOpen: boolean,
@@ -14,11 +14,18 @@ export default function Modal({isOpen, onClose, mode, setCustomers}: ModalInterf
 
     const handleSubmit = async(e: any) => {
         e.preventDefault();
-        let {data} = await storeCust({
+        let saveCust = await storeCust({
             name: clNome,
             email,
         });
-        console.log(data);
+
+        if (saveCust.success) {
+            let cust = await getList();
+            if (cust.success) {
+                setCustomers(cust.data);
+            }
+        }
+
         onClose();
     }
 

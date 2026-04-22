@@ -1,10 +1,31 @@
+import { useState, useEffect } from "react"
+import { getList, searchCust } from '../services/clientService';
+
 interface NavebarInterface {
     onOpen: () => void,
-    search: string,
-    setSearch: (val: string) => void
+    setCustomers: (val: any) => void
 }
 
-export default function Navbar({onOpen, search, setSearch}: NavebarInterface) {
+export default function Navbar({onOpen, setCustomers}: NavebarInterface) {
+    const [search, setSearch] = useState<string>('');
+
+    useEffect(() => {
+        const fetchData = async() => {
+            if (search) {
+                let s = await searchCust(search);
+                if (s.success) {
+                    setCustomers(s.data);
+                }
+            } else {
+                let cust = await getList();
+                if (cust.success) {
+                    setCustomers(cust.data);
+                }
+            }
+        }
+        fetchData().then()
+    }, [search]);
+
     return (
         <div className="max-lg:collapse bg-base-200 lg:mb-48 shadow-sm w-full rounded-md">
             <input id="navbar-1-toggle" className="peer hidden" type="checkbox" />
