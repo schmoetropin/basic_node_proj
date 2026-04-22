@@ -14,7 +14,16 @@ const searchCust = async(val: string) => {
     });
 }
 
+const storeCust = async(data: any) => {
+    return await apiFetchData({
+        method: 'POST',
+        url: `/client/store`, 
+        data
+    });
+}
+
 export {
     getList,
     searchCust,
+    storeCust,
 }

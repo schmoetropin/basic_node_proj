@@ -24,10 +24,12 @@ function App() {
 
   useEffect(() => {
       const fetchData = async() => {
+        if (search) {
           let { data } = await searchCust(search);
           if (data.success) {
             setCustomers(data);
           }
+        }
       }
       fetchData().then()
   }, [search]);
@@ -35,14 +37,6 @@ function App() {
   const handleOpen = (mode: string) => {
     setModalMode(mode);
     setIsOpen(true);
-  }
-
-  const handleSubmit = async() => {
-    if (modalMode == 'add') {
-      console.log('add');
-    } else {
-      console.log('edit');
-    }
   }
 
   return (
@@ -60,7 +54,7 @@ function App() {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         mode={modalMode}
-        onSubmit={() => handleSubmit}
+        setCustomers={setCustomers}
       />
     </>
   )

@@ -1,18 +1,24 @@
 import { useState } from "react"
+import { storeCust } from "../services/clientService"
 
 interface ModalInterface {
     isOpen: boolean,
     onClose: () => void,
     mode: string,
-    onSubmit: () => void,
+    setCustomers: (data: any) => void,
 };
 
-export default function Modal({isOpen, onClose, mode, onSubmit}: ModalInterface){
+export default function Modal({isOpen, onClose, mode, setCustomers}: ModalInterface){
     const [clNome, setClName] = useState<string>('');
     const [email, setEmail] = useState('');
 
     const handleSubmit = async(e: any) => {
         e.preventDefault();
+        let {data} = await storeCust({
+            name: clNome,
+            email,
+        });
+        console.log(data);
         onClose();
     }
 
@@ -24,6 +30,7 @@ export default function Modal({isOpen, onClose, mode, onSubmit}: ModalInterface)
                 </h3>
                 <form method="dialog" onSubmit={handleSubmit}>
                     <button
+                        type="button"
                         className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                         onClick={() => {}}
                     >
@@ -47,7 +54,7 @@ export default function Modal({isOpen, onClose, mode, onSubmit}: ModalInterface)
                         />
                     </div>
 
-                    <button className="btn btn-success">
+                    <button type="submit" className="btn btn-success">
                         {mode == 'add' ? 'Adicionar' : 'Editar'}
                     </button>
                 </form>
