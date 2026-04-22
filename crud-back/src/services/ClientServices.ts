@@ -29,7 +29,7 @@ class ClientService {
             );
             await db.commit();
 
-            return rows[0];
+            return 1;
         } catch (error) {
             await db.rollback();
             throw error;
@@ -49,7 +49,7 @@ class ClientService {
             );
             await db.commit();
 
-            return rows[0];
+            return 1;
         } catch (error) {
             await db.rollback();
             throw error;
@@ -68,7 +68,7 @@ class ClientService {
             );
             await db.commit();
 
-            return rows[0];
+            return 1;
         } catch (error) {
             await db.rollback();
             throw error;
@@ -95,6 +95,30 @@ class ClientService {
             );
             return rows;
         } catch (error) {
+            throw error;
+        }
+    }
+
+    statusClient = async(id: number) => {
+        try {
+            await db.beginTransaction();
+            const date = getDate();
+
+            const customer = await this.showClient(id);
+            if (customer[0]) {
+                let status = customer[0].status == 1 ? 0 : 1;
+
+                const [rows] = await db.query(
+                    `UPDATE customer SET updated_at=?, status=?
+                    WHERE id=?`,
+                    [date, status, id]
+                );
+            }
+            await db.commit();
+
+            return 1;
+        } catch (error) {
+            await db.rollback();
             throw error;
         }
     }

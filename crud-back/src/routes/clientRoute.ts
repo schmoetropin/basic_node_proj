@@ -9,5 +9,6 @@ router.put('/client/update/:id', ClientController.updateClient);
 router.delete('/client/delete/:id', ClientController.deleteClient);
 router.get('/client/search/:search', ClientController.searchClients);
 router.get('/client/show/:id', ClientController.showClient);
+router.put('/client/status/:id', ClientController.statusClient);
 
 export default router;

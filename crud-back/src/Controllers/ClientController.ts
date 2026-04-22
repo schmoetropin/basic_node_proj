@@ -71,6 +71,16 @@ class Customer {
             response.status(500).json({message: 'Error showing customer'});
         }
     }
+
+    statusClient = async(request: any, response: any) => {
+        try {
+            const cust = await ClientService.statusClient(request.params.id);
+            response.status(200).json(cust);
+        } catch (error) {
+            console.log(error);
+            response.status(500).json({message: 'Error showing customer'});
+        }
+    }
 }
 
 export default new Customer;
