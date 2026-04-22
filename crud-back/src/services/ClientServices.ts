@@ -41,11 +41,11 @@ class ClientService {
         try {
             await db.beginTransaction();
             const {name, email} = clientData;
-            const date = getDate;
+            const date = getDate();
 
             const [rows] = await db.query(
-                `UDPADE customer SET name=$name, email=$email, updated_at=$updated_at
-                WHERE id=$id
+                `UDPADE customer SET name=?, email=?, updated_at=?
+                WHERE id=?
                 RETURNING *`,
                 [name, email, date, id]
             );
@@ -61,11 +61,11 @@ class ClientService {
     deleteClient = async(id: number) => {
         try {
             await db.beginTransaction();
-            const date = getDate;
+            const date = getDate();
 
             const [rows] = await db.query(
-                `UDPADE customer SET updated_at=$deleted_at
-                WHERE id=$id
+                `UDPADE customer SET deleted_at=?
+                WHERE id=?
                 RETURNING *`,
                 [date, id]
             );
