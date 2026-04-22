@@ -24,8 +24,7 @@ class ClientService {
 
             const [rows] = await db.query(
                 `INSERT INTO customer(name, email, created_at, updated_at)
-                VALUES(?, ?, ?, ?)
-                RETURNING *`,
+                VALUES(?, ?, ?, ?)`,
                 [name, email, date, date]
             );
             await db.commit();
@@ -44,9 +43,8 @@ class ClientService {
             const date = getDate();
 
             const [rows] = await db.query(
-                `UDPADE customer SET name=?, email=?, updated_at=?
-                WHERE id=?
-                RETURNING *`,
+                `UPDATE customer SET name=?, email=?, updated_at=?
+                WHERE id=?`,
                 [name, email, date, id]
             );
             await db.commit();
@@ -64,9 +62,8 @@ class ClientService {
             const date = getDate();
 
             const [rows] = await db.query(
-                `UDPADE customer SET deleted_at=?
-                WHERE id=?
-                RETURNING *`,
+                `UPDATE customer SET deleted_at=?
+                WHERE id=?`,
                 [date, id]
             );
             await db.commit();

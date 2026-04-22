@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { getList, storeCust } from "../services/clientService"
+import { useState, useEffect } from "react"
+import { getList, storeCust, updateCust, showCust } from "../services/clientService"
 
 interface ModalInterface {
     isOpen: boolean,
@@ -7,18 +7,45 @@ interface ModalInterface {
     mode: string,
     setCustomers: (data: any) => void,
     setOpen: (val: boolean) => void,
+    custId: number,
 };
 
-export default function Modal({isOpen, onClose, mode, setCustomers, setOpen}: ModalInterface){
+export default function Modal({isOpen, onClose, mode, setCustomers, setOpen, custId}: ModalInterface){
     const [clNome, setClName] = useState<string>('');
     const [email, setEmail] = useState('');
 
+    useEffect(() => {
+        const fetchData = async() => {
+            if (mode == 'edit') {
+                let cust = await showCust(custId);
+                if (cust.success) {
+                    setClName(cust.data[0].name);
+                    setEmail(cust.data[0].email);
+                }
+            }
+        }
+        fetchData().then();
+    }, [custId]);
+
     const handleSubmit = async(e: any) => {
         e.preventDefault();
-        let saveCust = await storeCust({
+        
+        let custData = {
             name: clNome,
             email,
-        });
+        };
+
+        if (mode == 'add') {
+            store(custData);
+        } else {
+            update(custData, custId)
+        }
+
+        onClose();
+    }
+
+    const store = async(data: any) => {
+        let saveCust = await storeCust(data);
 
         if (saveCust.success) {
             let cust = await getList();
@@ -26,8 +53,17 @@ export default function Modal({isOpen, onClose, mode, setCustomers, setOpen}: Mo
                 setCustomers(cust.data);
             }
         }
+    }
 
-        onClose();
+    const update = async(data: any, id: Number) => {
+        let saveCust = await updateCust(data, id);
+
+        if (saveCust.success) {
+            let cust = await getList();
+            if (cust.success) {
+                setCustomers(cust.data);
+            }
+        }
     }
 
     return(

@@ -22,8 +22,25 @@ const storeCust = async(data: any) => {
     });
 }
 
+const updateCust = async(data: any, id: Number) => {
+    return await apiFetchData({
+        method: 'PUT',
+        url: `/client/update/${id}`, 
+        data
+    });
+}
+
+const showCust = async(id: number) => {
+    return await apiFetchData({
+        method: 'GET',
+        url: `/client/show/${id}`
+    });
+}
+
 export {
     getList,
     searchCust,
     storeCust,
+    updateCust,
+    showCust,
 }
