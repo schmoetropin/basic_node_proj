@@ -1,13 +1,26 @@
+import { statusCust, getList } from "../services/clientService";
+
 interface TablelistInstance {
     onOpen: () => void
     customers: any
     setCustId: (val: number) => void,
+    setCustomers: (val: any) => void,
 }
 
-export default function Tablelist({onOpen, customers, setCustId}: TablelistInstance){
+export default function Tablelist({onOpen, customers, setCustId, setCustomers}: TablelistInstance){
     const openModal = (id: number) => {
         setCustId(id);
         onOpen()
+    }
+
+    const updStatus = async(id: number) => {
+        const resp = await statusCust(id);
+        if (resp.success) {
+            const custs = await getList();
+            if (custs.success) {
+                setCustomers(custs.data);
+            }
+        }
     }
 
     return (
@@ -34,6 +47,7 @@ export default function Tablelist({onOpen, customers, setCustId}: TablelistInsta
                                     <td>{c.email}</td>
                                     <td>
                                         <button
+                                            onClick={() => updStatus(c.id)}
                                             className={`btn rounded-full ${c.status ? 'btn-primary' : 'btn-secondary'}`}
                                         >
                                             {c.status ? 'Ativo' : 'Inativo'}

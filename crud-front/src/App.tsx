@@ -24,6 +24,7 @@ function App() {
       <Tablelist
         onOpen={() => handleOpen('edit')}
         customers={customers}
+        setCustomers={setCustomers}
         setCustId={setCustId}
       />
       <Modal

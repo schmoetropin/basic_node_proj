@@ -37,10 +37,18 @@ const showCust = async(id: number) => {
     });
 }
 
+const statusCust = async(id: number) => {
+    return await apiFetchData({
+        method: 'PUT',
+        url: `/client/status/${id}`
+    });
+}
+
 export {
     getList,
     searchCust,
     storeCust,
     updateCust,
     showCust,
+    statusCust,
 }
