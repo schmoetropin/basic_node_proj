@@ -14,7 +14,7 @@ class Customer {
 
     storeClients = async(request: any, response: any) => {
         try {
-            const req = StoreCustomerRequest.rules(request.body);
+            const req = await StoreCustomerRequest.rules(request.body);
             if (!req.valid) {
                 response.status(422).json(req.errors);
             } else {
@@ -29,7 +29,12 @@ class Customer {
 
     updateClient = async(request: any, response: any) => {
         try {
-            const req = StoreCustomerRequest.rules(request.body);
+            let newRequest = {
+                ...request.body,
+                cust_id: request.params.id,
+            }
+
+            const req = await StoreCustomerRequest.rules(newRequest);
             if (!req.valid) {
                 response.status(422).json(req.errors);
             } else {
